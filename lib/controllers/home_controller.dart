@@ -7,7 +7,7 @@ import 'package:katarak_ml_app/services/image_loader_service.dart';
 
 class HomeController extends GetxController {
   final CataractClassifier _clf = CataractClassifier(
-    modelAsset: 'assets/cataract_model.tflite',
+    modelAsset: 'assets/model_fp16_rev.tflite',
   );
   final ImagePicker _picker = ImagePicker();
 
