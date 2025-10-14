@@ -17,12 +17,13 @@ class CataractClassifier {
       modelAsset,
       options: InterpreterOptions()..threads = threads,
     );
+    _interpreter.allocateTensors();
     _inputTensor = _interpreter.getInputTensors().first;
     _outputTensor = _interpreter.getOutputTensors().first;
 
     print('Model loaded successfully');
-    print('Input shape: ${_interpreter!.getInputTensor(0).shape}');
-    print('Output shape: ${_interpreter!.getOutputTensor(0).shape}');
+    print('Input shape: ${_interpreter!.getInputTensors()}');
+    print('Output shape: ${_interpreter!.getOutputTensors()}');
   }
 
   void close() => _interpreter.close();
@@ -62,7 +63,9 @@ class CataractClassifier {
   /// Prediksi dari objek image (sudah ter-decode).
   /// Return: skor probabilitas katarak [0..1].
   double predict(img.Image inputImage) {
-    final isFloatModel = _inputTensor.type == TfLiteType.kTfLiteFloat32;
+    final isFloatModel =
+        _inputTensor.type.value == TfLiteType.kTfLiteFloat32 ||
+        _inputTensor.type.value == TfLiteType.kTfLiteFloat16;
 
     Object input;
     if (isFloatModel) {
@@ -83,8 +86,8 @@ class CataractClassifier {
     final raw = output[0][0];
 
     // Dequantize jika output bertipe uint8/int8
-    if (_outputTensor.type == TfLiteType.kTfLiteUInt8 ||
-        _outputTensor.type == TfLiteType.kTfLiteInt8) {
+    if (_outputTensor.type.value == TfLiteType.kTfLiteUInt8 ||
+        _outputTensor.type.value == TfLiteType.kTfLiteInt8) {
       final scale = _outputTensor.params.scale;
       final zero = _outputTensor.params.zeroPoint;
       final intVal = raw is int ? raw : (raw as num).toInt();
@@ -96,6 +99,6 @@ class CataractClassifier {
     print('Raw output: $raw');
     print('Clamped output: ${(raw as num).toDouble().clamp(0.0, 1.0)}');
 
-    return (raw as num).toDouble().clamp(0.0, 1.0);
+    return raw.toDouble().clamp(0.0, 1.0);
   }
 }

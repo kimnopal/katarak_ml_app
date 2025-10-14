@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:katarak_ml_app/services/classifier_service.dart';
+import 'package:katarak_ml_app/services/classifier_test_service.dart';
 import 'package:katarak_ml_app/services/image_loader_service.dart';
 
 class HomeController extends GetxController {
   final CataractClassifier _clf = CataractClassifier(
-    modelAsset: 'assets/model_fp16_rev.tflite',
+    modelAsset: 'assets/cataract_model_v2.tflite',
   );
   final ImagePicker _picker = ImagePicker();
 
@@ -50,8 +51,11 @@ class HomeController extends GetxController {
     }
 
     final prob = _clf.predict(decoded);
-    confidence.value = prob;
-    resultLabel.value = prob >= 0.5 ? 'Katarak' : 'Normal';
+
+    final isNormal = prob >= 0.5; // 0.5 adalah threshold
+    confidence.value = isNormal ? prob * 100 : (1.0 - prob) * 100;
+    print('confidence: ${confidence.value}');
+    resultLabel.value = isNormal ? 'Normal' : 'Katarak';
   }
 
   @override

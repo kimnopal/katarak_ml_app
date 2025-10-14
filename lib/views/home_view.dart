@@ -13,10 +13,7 @@ class HomeView extends GetView<HomeController> {
       appBar: AppBar(
         title: const Text(
           'Deteksi Katarak',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
         ),
         backgroundColor: const Color(0xFF2E7D8A),
         elevation: 0,
@@ -34,10 +31,7 @@ class HomeView extends GetView<HomeController> {
                 SizedBox(height: 16),
                 Text(
                   'Memproses gambar...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ],
             ),
@@ -49,10 +43,10 @@ class HomeView extends GetView<HomeController> {
             children: [
               // Header Section
               _buildHeaderSection(),
-              
+
               // Image Processing Section
               _buildImageProcessingSection(),
-              
+
               // Footer Section
               _buildFooterSection(),
             ],
@@ -101,10 +95,7 @@ class HomeView extends GetView<HomeController> {
             const SizedBox(height: 8),
             const Text(
               'Unggah foto mata untuk analisis cepat dan akurat',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white70,
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.white70),
               textAlign: TextAlign.center,
             ),
           ],
@@ -148,7 +139,8 @@ class HomeView extends GetView<HomeController> {
                         child: _buildActionButton(
                           icon: Icons.camera_alt,
                           label: 'Kamera',
-                          onPressed: () => controller.pickImage(fromCamera: true),
+                          onPressed: () =>
+                              controller.pickImage(fromCamera: true),
                           isPrimary: true,
                         ),
                       ),
@@ -157,7 +149,8 @@ class HomeView extends GetView<HomeController> {
                         child: _buildActionButton(
                           icon: Icons.photo_library,
                           label: 'Galeri',
-                          onPressed: () => controller.pickImage(fromCamera: false),
+                          onPressed: () =>
+                              controller.pickImage(fromCamera: false),
                           isPrimary: false,
                         ),
                       ),
@@ -167,9 +160,9 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Image Preview Section
           Card(
             elevation: 4,
@@ -194,18 +187,12 @@ class HomeView extends GetView<HomeController> {
                     height: 280,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.grey[300]!,
-                        width: 2,
-                      ),
+                      border: Border.all(color: Colors.grey[300]!, width: 2),
                     ),
                     child: file != null
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              file,
-                              fit: BoxFit.cover,
-                            ),
+                            child: Image.file(file, fit: BoxFit.cover),
                           )
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -254,9 +241,9 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Results Section
           if (label.isNotEmpty) _buildResultsSection(label, conf),
         ],
@@ -304,10 +291,7 @@ class HomeView extends GetView<HomeController> {
               ),
               style: OutlinedButton.styleFrom(
                 foregroundColor: const Color(0xFF2E7D8A),
-                side: const BorderSide(
-                  color: Color(0xFF2E7D8A),
-                  width: 2,
-                ),
+                side: const BorderSide(color: Color(0xFF2E7D8A), width: 2),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -318,12 +302,10 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildResultsSection(String label, double conf) {
     final isPositive = label.toLowerCase().contains('katarak');
-    
+
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
@@ -372,7 +354,9 @@ class HomeView extends GetView<HomeController> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: isPositive ? Colors.orange[800] : Colors.green[800],
+                            color: isPositive
+                                ? Colors.orange[800]
+                                : Colors.green[800],
                           ),
                         ),
                       ],
@@ -392,18 +376,17 @@ class HomeView extends GetView<HomeController> {
                   children: [
                     Text(
                       'Tingkat Kepercayaan',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '${(conf * 100).toStringAsFixed(1)}%',
+                      '${(conf).toStringAsFixed(1)}%',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: isPositive ? Colors.orange[800] : Colors.green[800],
+                        color: isPositive
+                            ? Colors.orange[800]
+                            : Colors.green[800],
                       ),
                     ),
                   ],
@@ -423,18 +406,11 @@ class HomeView extends GetView<HomeController> {
       decoration: BoxDecoration(
         color: Colors.amber[50],
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.amber[200]!,
-          width: 1,
-        ),
+        border: Border.all(color: Colors.amber[200]!, width: 1),
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.info_outline,
-            color: Colors.amber[800],
-            size: 24,
-          ),
+          Icon(Icons.info_outline, color: Colors.amber[800], size: 24),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
