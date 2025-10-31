@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="katarak_ml_app"
+        android:label="KADEK App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

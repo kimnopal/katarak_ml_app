@@ -12,7 +12,7 @@ class HomeView extends GetView<HomeController> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: const Text(
-          'Deteksi Katarak',
+          'KADEK',
           style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
         ),
         backgroundColor: const Color(0xFF2E7D8A),
@@ -84,7 +84,7 @@ class HomeView extends GetView<HomeController> {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Deteksi Katarak dengan AI',
+              'Cataract Detection with AI',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
